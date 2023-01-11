@@ -1,8 +1,9 @@
 module GGJupyter
 
+using RCall
 
 const GG_ENV = Dict{String, Any}(
-    "height" => 7
+    "height" => 7,
     "width" => 7
 )
 
