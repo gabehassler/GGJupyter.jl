@@ -1,0 +1,4 @@
+name = "GGJupyter"
+uuid = "30565cd4-f191-4e92-9dff-14f0c9133614"
+authors = ["Gabe Hassler <ghassler@rand.org>"]
+version = "0.1.0"
