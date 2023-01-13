@@ -1,7 +1,8 @@
 module GGJupyter
 
 export gg_jupyter,
-       quick_hist
+       quick_hist,
+       quick_scatter
 
 using RCall
 
@@ -59,12 +60,34 @@ function quick_hist(df::DataFrame, xvar::String;
     this_theme = theme
     @rput this_theme
     R"""
-    ggplot(df, aes(x = df[[xvar]])) + geom_histogram() +
+    ggplot(df, aes(x = .data[[xvar]])) +
+        geom_histogram(bins = 30) +
         ggtitle(title) +
         xlab(xvar) +
         themes[this_theme]
     """
+    gg_jupyter()
+end
 
+function quick_scatter(df::DataFrame; x::String, y::String,
+                       title::String = "",
+                       theme::String = "default",
+                       alpha::Real = 1)
+
+    @rput df
+    @rput x
+    @rput y
+    @rput title
+    @rput alpha
+    this_theme = theme
+    @rput this_theme
+    R"""
+    ggplot(df, aes(x = .data[[x]], y = .data[[y]])) +
+        geom_point(alpha = alpha) +
+        ggtitle(title) +
+        themes[this_theme]
+    """
+    gg_jupyter()
 end
 
 end # module GGJupyter
